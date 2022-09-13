@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../Hooks";
-import { getAllCharacters } from "../../service";
+import { loadAllCharacters } from "../../slices/slices";
 import "./grilla-personajes.css";
 import TarjetaPersonaje from "./tarjeta-personaje.componente";
 
@@ -17,7 +17,7 @@ const GrillaPersonajes = () => {
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getAllCharacters());
+    dispatch(loadAllCharacters());
   }, [dispatch]);
   if (loading) return <div>Searching Characters...</div>;
   console.log(characters);
