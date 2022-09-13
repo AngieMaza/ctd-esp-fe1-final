@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAllCharacters } from "../service";
+import { getAllCharacters, getCharactersByName } from "../service";
 import { ICharacter } from "../types/cards"
 
 export type CharacterState= {
@@ -13,7 +13,7 @@ const initialState:CharacterState = {
 };
 const timeout = (ms: number) =>
     new Promise( (resolve, reject) => {
-        setTimeout(() => {
+        setTimeout(() => { 
             resolve(null);
         }, ms);
         });
@@ -22,6 +22,10 @@ export const loadAllCharacters = createAsyncThunk( "characters/fetchAllCharacter
     await timeout(2000);
     return getAllCharacters();
 })
+
+export const loadCharacterByName = createAsyncThunk( "characters/loadCharacterByName", async (name: string) =>{
+        return getCharactersByName(name);
+});
 
 export const charactersSlice = createSlice({
     name: "characters",
@@ -33,6 +37,17 @@ export const charactersSlice = createSlice({
         });
         builder.addCase(loadAllCharacters.fulfilled, (state, action) => {
             state.characters = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(loadCharacterByName.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(loadCharacterByName.fulfilled, (state, action) => {
+            state.characters = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(loadCharacterByName.rejected, (state) => {
+            state.characters = [];
             state.loading = false;
         });
     },

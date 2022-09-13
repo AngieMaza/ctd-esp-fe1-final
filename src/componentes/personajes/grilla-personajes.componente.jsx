@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../Hooks";
-import { loadAllCharacters } from "../../slices/slices";
+import { useAppSelector} from "../../Hooks";
 import "./grilla-personajes.css";
 import TarjetaPersonaje from "./tarjeta-personaje.componente";
 
@@ -13,14 +11,11 @@ import TarjetaPersonaje from "./tarjeta-personaje.componente";
  * @returns un JSX element
  */
 const GrillaPersonajes = () => {
+
   const { characters, loading } = useAppSelector((state) => state.characters);
 
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(loadAllCharacters());
-  }, [dispatch]);
-  if (loading) return <div>Searching Characters...</div>;
-  console.log(characters);
+    if (loading) return <div>Searching Characters...</div>;
+    
   return (
     <div className="grilla-personajes">
       {characters.map((character) => {
