@@ -1,37 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createThunk } from "../Hooks";
-import { getAllCharacters, getCharactersByName } from "../service";
+import { getCharacters } from "../service";
 import { ICharacter } from "../types/cards"
 
 export type CharacterState= {
     characters: ICharacter[];
     loading: boolean;
     page: number;
-    searchName: string;
 }
 
 const initialState:CharacterState = {
     characters: [],
     loading: false,
-    page: 0,
-    searchName: "",
+    page: 1,
 };
 
-export const loadAllCharacters = createThunk<ICharacter[], void> (
-    "characters/LoadAllCharacters",
-    async (_,thunkAPI) =>{
-        const state = thunkAPI.getState();
-        const { page } = state.characters;
-        return getAllCharacters({page:page.toString()})
-    }
-) 
 
-export const loadCharacterByName = createThunk< ICharacter[], string>(
+export const loadCharacters = createThunk< ICharacter[], string>(
     "character/LoadCharacterByName",
     async (nameToSearch,thunkAPI) =>{
         const state = thunkAPI.getState();
         const { page }= state.characters;
-        return getCharactersByName({page: page.toString()}, nameToSearch);
+        return getCharacters( page.toString(), nameToSearch);
     }
 )
 
@@ -47,21 +37,14 @@ export const charactersSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(loadAllCharacters.pending, (state) => {
+        builder.addCase(loadCharacters.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(loadAllCharacters.fulfilled, (state, action) => {
+        builder.addCase(loadCharacters.fulfilled, (state, action) => {
             state.characters = action.payload;
             state.loading = false;
         });
-        builder.addCase(loadCharacterByName.pending, (state) => {
-            state.loading = true;
-        });
-        builder.addCase(loadCharacterByName.fulfilled, (state, action) => {
-            state.characters = action.payload;
-            state.loading = false;
-        });
-        builder.addCase(loadCharacterByName.rejected, (state) => {
+        builder.addCase(loadCharacters.rejected, (state) => {
             state.characters = [];
             state.loading = false;
         });

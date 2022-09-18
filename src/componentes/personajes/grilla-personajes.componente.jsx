@@ -1,7 +1,6 @@
-import { useAppSelector} from "../../Hooks";
+import { useAppSelector } from "../../Hooks";
 import "./grilla-personajes.css";
 import TarjetaPersonaje from "./tarjeta-personaje.componente";
-
 /**
  * Grilla de personajes para la pagina de inicio
  *
@@ -11,10 +10,10 @@ import TarjetaPersonaje from "./tarjeta-personaje.componente";
  * @returns un JSX element
  */
 const GrillaPersonajes = () => {
-
-  const { characters, loading } = useAppSelector((state) => state.characters);
-  if (loading) return <div>Searching Characters...</div>;
+  const { characters, loading} = useAppSelector((state) => state.characters);
   console.log(characters);
+  if (loading) return <div>Searching Characters...</div>;
+
   return (
     <div className="grilla-personajes">
       {characters.map((character) => {
