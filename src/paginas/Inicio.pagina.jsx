@@ -2,7 +2,7 @@ import Filtros from "../componentes/personajes/filtros.componente";
 import GrillaPersonajes from "../componentes/personajes/grilla-personajes.componente";
 import Paginacion from "../componentes/paginacion/paginacion.componente";
 import { useAppDispatch, useAppSelector } from "../Hooks";
-import { loadCharacters } from "../slices/slices";
+import { charactersSlice, loadCharacters } from "../slices/slices";
 import { useEffect } from "react";
 /**
  * Esta es la pagina principal. Aquí se debera ver el panel de filtros junto con la grilla de personajes.
@@ -24,7 +24,7 @@ const PaginaInicio = () => {
     <div className="container">
       <div className="actions">
         <h3>Catálogo de Personajes</h3>
-        <button className="danger" onClick={() => dispatch(loadCharacters())}>
+        <button className="danger" onClick={() => dispatch(charactersSlice.actions.cleanFilter())}>
           Limpiar Filtros
         </button>
       </div>

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createThunk } from "../Hooks";
-import { getCapitulo, getCharacters } from "../service";
-import { IChapter, ICharacter } from "../types/cards"
+import { getCharacters } from "../service";
+import { ICharacter } from "../types/cards"
 
 export type CharacterState= {
     characters: ICharacter[];
@@ -40,6 +40,10 @@ export const charactersSlice = createSlice({
         },
         nameToFilter: (state, action) =>{
             state.name = action.payload;
+        },
+        cleanFilter: (state) => {
+            state.name = "";
+            state.page = 1;
         },
         onDetail : (state, action) => {
             state.detail = action.payload;
