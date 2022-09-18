@@ -1,13 +1,13 @@
 import { useAppDispatch } from '../../Hooks';
+import { charactersSlice} from '../../slices/slices';
+
 import './filtros.css';
-import { loadCharacters } from '../../slices/slices';
 
 const Filtros = () => {
     const dispatch = useAppDispatch();
     return <div className="filtros">
         <label htmlFor="nombre">Filtrar por nombre:</label>
-        <input type="text" placeholder="Rick, Morty, Beth, Alien, ...etc" name="nombre" onChange={(e) => dispatch(loadCharacters(e.target.value))} />
+        <input type="text" placeholder="Rick, Morty, Beth, Alien, ...etc" name="nombre" onChange={(e) => dispatch(charactersSlice.actions.nameToFilter(e.currentTarget.value))} />
     </div>
 }
-
 export default Filtros;

@@ -1,29 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createThunk } from "../Hooks";
-import { getCharacters } from "../service";
-import { ICharacter } from "../types/cards"
+import { getCapitulo, getCharacters } from "../service";
+import { IChapter, ICharacter } from "../types/cards"
 
 export type CharacterState= {
     characters: ICharacter[];
     loading: boolean;
     page: number;
     name: string;
+    detail: ICharacter[];
 }
 
-const initialState:CharacterState = {
+const initialState: CharacterState ={
     characters: [],
     loading: false,
     page: 1,
     name: "",
+    detail:[],
 };
 
-
 export const loadCharacters = createThunk< ICharacter[], string>(
-    "character/LoadCharacterByName",
-    async (nameToSearch,thunkAPI) =>{
+    "character/LoadCharacters",
+    async (_,thunkAPI) =>{
         const state = thunkAPI.getState();
         const { page, name }= state.characters;
-        state.characters.name = nameToSearch;
         return getCharacters( page.toString(), name);
     }
 )
@@ -37,7 +37,13 @@ export const charactersSlice = createSlice({
         },
         prevPage: (state) => {
             state.page -=1;
-        }
+        },
+        nameToFilter: (state, action) =>{
+            state.name = action.payload;
+        },
+        onDetail : (state, action) => {
+            state.detail = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(loadCharacters.pending, (state) => {

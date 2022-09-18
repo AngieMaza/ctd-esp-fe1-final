@@ -14,15 +14,17 @@ import { useEffect } from "react";
  */
 const PaginaInicio = () => {
   const dispatch = useAppDispatch();
-  const { page } = useAppSelector((state) => state.characters);
+  const { page, name } = useAppSelector((state) => state.characters);
+  
   useEffect(() => {
-    dispatch(loadCharacters(1));
-  }, [page, dispatch]);
+    dispatch(loadCharacters());
+  }, [page, name, dispatch]);
+
   return (
     <div className="container">
       <div className="actions">
         <h3>Catálogo de Personajes</h3>
-        <button className="danger" onClick={() => dispatch(loadCharacters(1))}>
+        <button className="danger" onClick={() => dispatch(loadCharacters())}>
           Limpiar Filtros
         </button>
       </div>
