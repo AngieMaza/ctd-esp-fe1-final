@@ -7,12 +7,14 @@ export type CharacterState= {
     characters: ICharacter[];
     loading: boolean;
     page: number;
+    name: string;
 }
 
 const initialState:CharacterState = {
     characters: [],
     loading: false,
     page: 1,
+    name: "",
 };
 
 
@@ -20,8 +22,9 @@ export const loadCharacters = createThunk< ICharacter[], string>(
     "character/LoadCharacterByName",
     async (nameToSearch,thunkAPI) =>{
         const state = thunkAPI.getState();
-        const { page }= state.characters;
-        return getCharacters( page.toString(), nameToSearch);
+        const { page, name }= state.characters;
+        state.characters.name = nameToSearch;
+        return getCharacters( page.toString(), name);
     }
 )
 

@@ -13,7 +13,6 @@ const GrillaPersonajes = () => {
   const { characters, loading} = useAppSelector((state) => state.characters);
   console.log(characters);
   if (loading) return <div>Searching Characters...</div>;
-
   return (
     <div className="grilla-personajes">
       {characters.map((character) => {

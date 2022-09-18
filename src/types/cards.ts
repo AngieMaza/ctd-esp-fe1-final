@@ -14,7 +14,7 @@ export interface ICharacter{
       url: string;
     };
     image: string;
-    eisode: Array<string>;
+    episode: Array<string>;
     url: string;
     created: string;
   }
