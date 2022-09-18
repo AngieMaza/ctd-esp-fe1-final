@@ -13,9 +13,8 @@ import TarjetaPersonaje from "./tarjeta-personaje.componente";
 const GrillaPersonajes = () => {
 
   const { characters, loading } = useAppSelector((state) => state.characters);
-
-    if (loading) return <div>Searching Characters...</div>;
-    
+  if (loading) return <div>Searching Characters...</div>;
+  console.log(characters);
   return (
     <div className="grilla-personajes">
       {characters.map((character) => {

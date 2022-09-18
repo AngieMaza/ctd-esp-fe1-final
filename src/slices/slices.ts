@@ -1,36 +1,51 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { createThunk } from "../Hooks";
 import { getAllCharacters, getCharactersByName } from "../service";
 import { ICharacter } from "../types/cards"
 
 export type CharacterState= {
     characters: ICharacter[];
     loading: boolean;
+    page: number;
+    searchName: string;
 }
 
 const initialState:CharacterState = {
     characters: [],
     loading: false,
+    page: 0,
+    searchName: "",
 };
-const timeout = (ms: number) =>
-    new Promise( (resolve, reject) => {
-        setTimeout(() => { 
-            resolve(null);
-        }, ms);
-        });
 
-export const loadAllCharacters = createAsyncThunk( "characters/fetchAllCharacters", async () =>{
-    await timeout(2000);
-    return getAllCharacters();
-})
+export const loadAllCharacters = createThunk<ICharacter[], void> (
+    "characters/LoadAllCharacters",
+    async (_,thunkAPI) =>{
+        const state = thunkAPI.getState();
+        const { page } = state.characters;
+        return getAllCharacters({page:page.toString()})
+    }
+) 
 
-export const loadCharacterByName = createAsyncThunk( "characters/loadCharacterByName", async (name: string) =>{
-        return getCharactersByName(name);
-});
+export const loadCharacterByName = createThunk< ICharacter[], string>(
+    "character/LoadCharacterByName",
+    async (nameToSearch,thunkAPI) =>{
+        const state = thunkAPI.getState();
+        const { page }= state.characters;
+        return getCharactersByName({page: page.toString()}, nameToSearch);
+    }
+)
 
 export const charactersSlice = createSlice({
     name: "characters",
     initialState,
-    reducers: {},
+    reducers: {
+        nextPage: (state) => {
+            state.page +=1;
+        },
+        prevPage: (state) => {
+            state.page -=1;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(loadAllCharacters.pending, (state) => {
             state.loading = true;
