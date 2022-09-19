@@ -17,11 +17,15 @@ type Props = {
   character: ICharacter;
 };
 const TarjetaPersonaje = ({ character }: Props) => {
+
   const [isFavorite, setIsFavorite] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleClick = () => {
     setIsFavorite(!isFavorite);
+    !isFavorite ? (charactersSlice.actions.deleteFavorites(character.id)
+    ) : (charactersSlice.actions.addFavorites(character))
   };
 
   return (

@@ -8,7 +8,8 @@ export type CharacterState= {
     loading: boolean;
     page: number;
     name: string;
-    detail: ICharacter[];
+    detail: ICharacter;
+    favorites: ICharacter[];
 }
 
 const initialState: CharacterState ={
@@ -16,7 +17,26 @@ const initialState: CharacterState ={
     loading: false,
     page: 1,
     name: "",
-    detail:[],
+    detail:{
+        id: null,
+        name: "",
+        status: "",
+        species: "",
+        type: "",
+        gender: "",
+        origin:{
+          name: "",
+          url: "",
+        },
+        location:{
+          name: "",
+          url: "",
+        },
+        image: "",
+        episode: [],
+        url: "",
+      },
+    favorites:[],
 };
 
 export const loadCharacters = createThunk< ICharacter[], string>(
@@ -47,6 +67,12 @@ export const charactersSlice = createSlice({
         },
         onDetail : (state, action) => {
             state.detail = action.payload;
+        },
+        addFavorites : (state, action) => {
+            state.favorites = action.payload;
+        },
+        deleteFavorites : (state, action) => {
+            state.favorites.filter((favorite) => favorite.id !== action.payload); 
         },
     },
     extraReducers: (builder) => {

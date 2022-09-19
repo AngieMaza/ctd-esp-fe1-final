@@ -22,8 +22,7 @@ const PaginaDetalle = () => {
     useEffect(() => {
       dispatch(loadCharacters());
     }, [detail , dispatch]);
-    if (detail.length === 0) return <div className={"container"}> Selecciona un personaje para ver su información </div>
-    console.log(detail);
+    if (detail.id === null) return <div className={"container"}> Selecciona un personaje para ver su información </div>
     return <div className="container">
         <h3>{detail.name}</h3>
         <div className={"detalle"}>
@@ -33,6 +32,9 @@ const PaginaDetalle = () => {
                     <p>{detail.name}</p>
                     <p>Planeta: {detail.origin.name}</p>
                     <p>Genero: {detail.gender}</p>
+                    <p>Especie: {detail.species}</p>
+                    <p>Estado: {detail.status}</p>
+                    <p>Ultimo Avistamiento: {detail.location.name}</p>
                 </div>
                 <BotonFavorito esFavorito={false} />
             </div>

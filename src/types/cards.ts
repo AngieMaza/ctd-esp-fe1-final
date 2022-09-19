@@ -1,5 +1,5 @@
 export interface ICharacter{
-    id: number;
+    id: number|null;
     name: string;
     status: string;
     species: string;
@@ -16,25 +16,12 @@ export interface ICharacter{
     image: string;
     episode: Array<string>;
     url: string;
-    created: string;
   }
-
-  export interface ILocation {
-    id: number;
-    name: string;
-    type: string;
-    dimension: string;
-    residents: Array<string>;
-    url: string;
-    created: string;
-  }
-
   export interface IChapter{
     id: number;
     name: string;
     air_date: string;
     episode: string;
-    charactes: Array<string>;
     url: string;
     created: string;
   }
