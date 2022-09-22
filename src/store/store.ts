@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { chapterSlice } from "../slices/sliceChapters";
 import { charactersSlice } from "../slices/slicePersonajes";
 
 const rootReducer = combineReducers({
   characters: charactersSlice.reducer,
+  chapters: chapterSlice.reducer,
 });
 
 export const store = configureStore({

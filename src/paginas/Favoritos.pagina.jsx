@@ -16,7 +16,7 @@ const dispatch = useAppDispatch ();
 useEffect ( () => {
 dispatch(loadCharactersFavorites())
 },[favoritesId, dispatch]);
-if (favorites.length === 0 ) return <div className="container"> No tienes Favoritos</div>
+if (favorites.results) return <div className="container"> No tienes Favoritos</div>
 return <div className="container">
         <div className="actions">
             <h3>Personajes Favoritos</h3>

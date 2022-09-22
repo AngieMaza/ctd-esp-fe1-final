@@ -1,3 +1,4 @@
+import { IChapter } from '../../types/types';
 import './tarjeta-episodio.css';
 
 /**
@@ -9,15 +10,15 @@ import './tarjeta-episodio.css';
  * @returns un JSX element 
  */
  type Props = {
-    url: string;
+    chapter: IChapter;
   };
-const TarjetaEpisodio = ({url}:Props) => {
+const TarjetaEpisodio = ({chapter}:Props) => {
     
     return <div className="tarjeta-episodio">
-            <h4>Close Rick-counters of the Rick Kind</h4>
+            <h4>{chapter?.name}</h4>
             <div>
-                <span>S01E01</span>
-                <span>Lanzado el: April 7, 2014</span>
+                <span>{chapter?.episode}</span>
+                <span>{chapter?.air_date}</span>
             </div>
     </div>
 }
