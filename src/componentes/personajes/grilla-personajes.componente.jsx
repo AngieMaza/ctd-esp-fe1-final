@@ -14,13 +14,13 @@ const GrillaPersonajes = () => {
   const { characters, loading, favorites} = useAppSelector((state) => state.characters);
   const location = useLocation();
   if (loading) return <div>Searching Characters...</div>;
-  console.log(favorites);
   return (
     <div className="grilla-personajes">
       {
         (location.pathname === "/") ? (
-          characters.map((character) =><TarjetaPersonaje key={character.id} character={character} />)
-        ) : ( favorites.length > 0 ? (favorites.map((character) =><TarjetaPersonaje key={character.id} character={character} />)): null)
+          characters.results?.map((character) =><TarjetaPersonaje key={character.id} character={character} />)
+        ) : ( favorites.length > 1 ? (favorites.map((character) =><TarjetaPersonaje key={character.id} character={character} />)) : 
+        (favorites.length !== [] ? <TarjetaPersonaje key={favorites.id} character={favorites} /> : null))
       }
     </div>
   );

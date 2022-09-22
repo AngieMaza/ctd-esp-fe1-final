@@ -34,3 +34,8 @@ export interface ICharacter{
     favoritesId: number[];
     favorites: ICharacter[];
 }
+
+export type ChapterState= {
+  chapters: IChapter[];
+  loading: boolean;
+}

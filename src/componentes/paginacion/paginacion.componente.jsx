@@ -1,4 +1,4 @@
-import { useAppDispatch } from '../../Hooks';
+import { useAppDispatch, useAppSelector } from '../../Hooks';
 import { charactersSlice} from '../../slices/slicePersonajes';
 import './paginacion.css';
 /**
@@ -9,11 +9,12 @@ import './paginacion.css';
  * 
  * @returns un JSX element 
  */
-const Paginacion = () => { 
+const Paginacion = () => {
+    const {characters} = useAppSelector((state) => state.characters);
     const dispatch = useAppDispatch();
     return <div className="paginacion">
-        <button disabled={false} className={"primary"} onClick={()=> dispatch(charactersSlice.actions.prevPage()) } >Anterior</button>
-        <button disabled={false} className={"primary"} onClick={()=> dispatch(charactersSlice.actions.nextPage()) }>Siguiente</button>
+        <button disabled={characters.info?.prev === null ? true : false} className={"primary"} onClick={()=> dispatch(charactersSlice.actions.prevPage()) } >Anterior</button>
+        <button disabled={characters.info?.next === null ? true : false} className={"primary"} onClick={()=> dispatch(charactersSlice.actions.nextPage()) }>Siguiente</button>
     </div>
 }
 

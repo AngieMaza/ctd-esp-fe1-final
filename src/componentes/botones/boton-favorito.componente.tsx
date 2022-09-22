@@ -19,7 +19,7 @@ const dispatch = useAppDispatch();
 
 const handleClick = () => {
     if(favoritesId.length > 0) {
-      favoritesId.includes(id) ? (charactersSlice.actions.deleteFavorite(id)) :
+      favoritesId.includes(id) ? dispatch(charactersSlice.actions.deleteFavorite(id)) :
       dispatch(charactersSlice.actions.addFavorites(id))
     } else {
       dispatch(charactersSlice.actions.addFavorites(id))
