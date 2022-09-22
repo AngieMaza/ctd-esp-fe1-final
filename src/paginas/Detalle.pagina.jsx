@@ -3,7 +3,7 @@ import BotonFavorito from "../componentes/botones/boton-favorito.componente";
 import TarjetaEpisodio from "../componentes/episodios/tarjeta-episodio.componente";
 import { useAppDispatch, useAppSelector} from "../Hooks/index";
 import { useEffect } from "react";
-import { loadCharacters } from "../slices/slices";
+import { loadCharacters } from "../slices/slicePersonajes";
 /**
  * Esta es la pagina de detalle. Aqui se puede mostrar la vista sobre el personaje seleccionado junto con la lista de episodios en los que aparece
  * 
@@ -22,7 +22,7 @@ const PaginaDetalle = () => {
     useEffect(() => {
       dispatch(loadCharacters());
     }, [detail , dispatch]);
-    if (detail.id === null) return <div className={"container"}> Selecciona un personaje para ver su información </div>
+    if (detail.id === 0) return <div className={"container"}> Selecciona un personaje para ver su información </div>
     return <div className="container">
         <h3>{detail.name}</h3>
         <div className={"detalle"}>
@@ -36,7 +36,7 @@ const PaginaDetalle = () => {
                     <p>Estado: {detail.status}</p>
                     <p>Ultimo Avistamiento: {detail.location.name}</p>
                 </div>
-                <BotonFavorito esFavorito={false} />
+                <BotonFavorito id={detail.id} />
             </div>
         </div>
         <h4>Lista de episodios donde apareció el personaje</h4>

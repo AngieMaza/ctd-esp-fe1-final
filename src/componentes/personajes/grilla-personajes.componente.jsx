@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../Hooks";
 import "./grilla-personajes.css";
 import TarjetaPersonaje from "./tarjeta-personaje.componente";
@@ -10,14 +11,17 @@ import TarjetaPersonaje from "./tarjeta-personaje.componente";
  * @returns un JSX element
  */
 const GrillaPersonajes = () => {
-  const { characters, loading} = useAppSelector((state) => state.characters);
-  console.log(characters);
+  const { characters, loading, favorites} = useAppSelector((state) => state.characters);
+  const location = useLocation();
   if (loading) return <div>Searching Characters...</div>;
+  console.log(favorites);
   return (
     <div className="grilla-personajes">
-      {characters.map((character) => {
-        return <TarjetaPersonaje key={character.id} character={character} />;
-      })}
+      {
+        (location.pathname === "/") ? (
+          characters.map((character) =><TarjetaPersonaje key={character.id} character={character} />)
+        ) : ( favorites.length > 0 ? (favorites.map((character) =><TarjetaPersonaje key={character.id} character={character} />)): null)
+      }
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../Hooks';
-import { charactersSlice} from '../../slices/slices';
+import { charactersSlice} from '../../slices/slicePersonajes';
 import './paginacion.css';
 /**
  * Componente que contiene los botones para paginar

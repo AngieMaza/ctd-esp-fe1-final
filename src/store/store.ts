@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { charactersSlice } from "../slices/slices";
+import { charactersSlice } from "../slices/slicePersonajes";
 
 const rootReducer = combineReducers({
   characters: charactersSlice.reducer,

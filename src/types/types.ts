@@ -1,5 +1,5 @@
 export interface ICharacter{
-    id: number|null;
+    id: number;
     name: string;
     status: string;
     species: string;
@@ -25,4 +25,12 @@ export interface ICharacter{
     url: string;
     created: string;
   }
-  
+  export type CharacterState= {
+    characters: ICharacter[];
+    loading: boolean;
+    page: number;
+    name: string;
+    detail: ICharacter;
+    favoritesId: number[];
+    favorites: ICharacter[];
+}

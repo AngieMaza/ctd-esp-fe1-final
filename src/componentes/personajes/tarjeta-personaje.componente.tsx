@@ -1,10 +1,9 @@
 import BotonFavorito from "../botones/boton-favorito.componente";
 import "./tarjeta-personaje.css";
-import { ICharacter } from "../../types/cards";
-import { useState } from "react";
+import { ICharacter } from "../../types/types";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../Hooks/index";
-import { charactersSlice } from "../../slices/slices";
+import { charactersSlice } from "../../slices/slicePersonajes";
 /**
  * Tarjeta para cada personaje dentro de la grilla de personajes.
  *
@@ -17,17 +16,8 @@ type Props = {
   character: ICharacter;
 };
 const TarjetaPersonaje = ({ character }: Props) => {
-
-  const [isFavorite, setIsFavorite] = useState(false);
-
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const handleClick = () => {
-    setIsFavorite(!isFavorite);
-    !isFavorite ? (charactersSlice.actions.deleteFavorites(character.id)
-    ) : (charactersSlice.actions.addFavorites(character))
-  };
-
   return (
     <div className="tarjeta-personaje">
       <img src={character.image} alt="Rick Sanchez" onClick={()=> {
@@ -36,7 +26,7 @@ const TarjetaPersonaje = ({ character }: Props) => {
       }} />
       <div className="tarjeta-personaje-body">
         <span>{character.name}</span>
-        <BotonFavorito esFavorito={isFavorite} onClick={handleClick} />
+        <BotonFavorito id={character.id}/>
       </div>
     </div>
   );
